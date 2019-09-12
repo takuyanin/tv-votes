@@ -7,20 +7,24 @@ import {
 
 const App = () => (
   <Router>
-    <div>
-      <ul>
-        <li><Link to='/'>Home</Link></li>
-        <li><Link to='/about'>About</Link></li>
-        <li><Link to='/tvs'>Tvs</Link></li>
-      </ul>
-
-      <hr />
-
-      <Route exact path='/' component={Home} />
-      <Route path='/about' component={About} />
-      <Route path='/tvs' component={Tvs} />
+    <div className='App'>
+      <Header />
+      <div className='content'>
+        <Route exact path='/' component={Home} />
+        <Route path='/about' component={About} />
+        <Route path='/tvs' component={Tvs} />
+      </div>
     </div>
   </Router>
+)
+const Header = () => (
+  <div className='header'>
+    <ul>
+      <li><Link to='/'>Home</Link></li>
+      <li><Link to='/about'>About</Link></li>
+      <li><Link to='/tvs'>Tvs</Link></li>
+    </ul>
+  </div>
 )
 
 const Home = () => (
@@ -33,7 +37,7 @@ const Home = () => (
 const About = () => (
   <div>
     <h2>About</h2>
-    <p>The page to vote to tv-programs.</p>
+    <p>The page to vote for tv-programs.</p>
   </div>
 )
 
@@ -41,13 +45,12 @@ class Tvs extends React.Component {
   constructor() {
     super()
     this.state = {}
-    this.handleVote = this.handleVote.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     TVS.forEach(tv => {
       this.setState({
-        // ...this.state,
+        ...this.state,
         [tv.id]: 0
       })
     })
@@ -59,22 +62,16 @@ class Tvs extends React.Component {
   }
 
   render() {
+    const handleVote = () => this.handleVote()
     return (
       <div>
         <h2>Tvs</h2>
-        <Route exact path='/tvs' render={props => <TvList handleVote={this.handleVote} />} />
+        <Route exact path='/tvs' render={props => <TvList handleVote={handleVote} />} />
         <Route path='/tvs/:id' render={props => <Tv match={props.match} votes={this.state} />} />
       </div>
     )
   }
 }
-// const Tvs = () => (
-//   <div>
-//     <h2>Tvs</h2>
-//     <Route exact path='/tvs' component={TvList} />
-//     <Route pathh path='/tvs/:id' component={Tv} />
-//   </div>
-// )
 
 const TvList = (props) => (
   <div>
@@ -99,26 +96,26 @@ const Tv = props => {
       </div>
     )
   }
-  const containerStyle = { border: '1px gray solid', display: 'inline-block', padding: 10 }
-  const contentsStyle = { margin: 0 }
 
   return (
     <div>
-      <div style={containerStyle}>
-        <p style={contentsStyle}>{tv.name}</p>
-        <h1 style={contentsStyle}>{tv.description}</h1>
+      <div>
+        <p>{tv.name}</p>
+        <h3>{tv.description}</h3>
       </div>
-      <h1>Vote: {vote}</h1>
+      <h3>Vote: {vote}</h3>
+      <div><Link to='/tvs'>⇨戻る</Link></div>
     </div>
   )
 }
 
+const tvById = id => TVS.find(tv => tv.id === id)
 
 const TVS = [
   {
     id: 'tabizaru',
-      name: 'tabizaru',
-      description: 'Some Japanese comedians travels around the world including in Japan.'
+    name: 'tabizaru',
+    description: 'Some Japanese comedians travel around the world including in Japan.'
   },
   {
     id: 'gakitsuka',
@@ -126,12 +123,10 @@ const TVS = [
     description: 'Some of most famous Japanese comediana fool around and give us lots of laughter.'
   },
   {
-  id: 'moyasama',
-  name: 'moyasama',
-  description: 'Japanese comedians and a female newcaster walk aorund less populated area mainly in Tokyo, Japan.'
+    id: 'moyasama',
+    name: 'moyasama',
+    description: 'Japanese comedians and a female newcaster walk aorund less populated area mainly in Tokyo, Japan.'
   }
 ]
-
-const tvById = id => TVS.find(tv => tv.id === id)
 
 export default App

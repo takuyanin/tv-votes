@@ -1,0 +1,28 @@
+.App {
+  font-family: sans-serif;
+  .header {
+    background-color: orange;
+    height: 80px;
+    line-height: 80px;
+    font-size: 32px;
+    ul {
+      margin: 0 auto;
+      list-style: none;
+      background-color: orange;
+      display: flex;
+      // text-align: center;
+      justify-content: space-around;
+      width: 600px;
+      li {
+        a {
+          color: white;
+        }
+      }
+    }
+  }
+  .content {
+    text-align: center;
+    margin: 0 auto;
+    // background-color: blue;
+  }
+}
