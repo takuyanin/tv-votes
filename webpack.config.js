@@ -45,6 +45,14 @@ module.exports = [
         {
           test: /\.scss$/,
           loader: ETP.extract({ fallback: 'style-loader', use: 'css-loader!sass-loader' })
+        },
+        {
+          test: /\.jpg$/,
+          loader: 'file-loader',
+          options: {
+            limit: 8192,
+            name: '[name].[ext]'
+          }
         }
       ]
     },

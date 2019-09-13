@@ -1,28 +1,134 @@
 .App {
   font-family: sans-serif;
-  .header {
-    background-color: orange;
-    height: 80px;
-    line-height: 80px;
-    font-size: 32px;
-    ul {
-      margin: 0 auto;
-      list-style: none;
-      background-color: orange;
-      display: flex;
-      // text-align: center;
-      justify-content: space-around;
-      width: 600px;
-      li {
+  .content {
+    text-align: center;
+    margin: 0 auto;
+  }
+}
+
+.header {
+  background-color:#A18E5C;
+  height: 80px;
+  line-height: 80px;
+  font-size: 24px;
+  ul {
+    margin: 0 auto;
+    list-style: none;
+    background-color: #A18E5C;
+    display: flex;
+    justify-content: space-around;
+    width: 600px;
+    padding-left: 0px;
+    li {
+      a {
+        color: white;
+      }
+    }
+  }
+}
+
+$baseColor: #fff;
+$borderColor-table: #ddd;
+$backgroundColor-tableHeader: #02AEDC;
+
+@mixin baseSettings {
+  margin: 0 auto;
+  padding: 50px;
+  background-color: $baseColor;
+  margin-top: 100px;
+  width: 600px;
+}
+
+.home {
+  @include baseSettings();
+}
+
+.about {
+  @include baseSettings();
+}
+
+.tvs {
+  table.tvlist {
+    background-color: $baseColor;
+    margin: 0 auto;
+    margin-top: 100px;
+    color: $baseColor;
+    border-spacing: 0px;
+    border-bottom: 1px solid $borderColor-table;
+    border-right: 1px solid $borderColor-table;
+    border-left: 1px solid $borderColor-table;
+    tr:nth-child(1) {
+      height: 50px;
+      font-size: 16px;
+      th:nth-child(1) {
+        background-color: $backgroundColor-tableHeader;
+        padding-left: 50px;
+      }
+      th:nth-child(2) {
+        background-color: $backgroundColor-tableHeader;
+        width: 400px;
+      }
+      th:nth-child(3) {
+        background-color: $backgroundColor-tableHeader;
+      }
+    }
+    tr {
+      height: 80px;
+      font-size: 20px;
+      td:nth-child(1) {
+        color: yellow;
+        background-color: #F34854;
+      }
+      td:nth-child(2) {
+        border-bottom: 1px solid $borderColor-table;
         a {
-          color: white;
+          text-decoration: none;
+          color: black;
+          &:hover {
+            color: orange;
+          }
+        }
+      }
+      td:nth-child(3) {
+        border-bottom: 1px solid $borderColor-table;
+        background-color: $baseColor;
+        padding: 0 10px;
+        button {
+          border-radius: 15px;
+          font-size: 15px;
+          color: $baseColor;
+          background-color: #25b327;
+          padding: 10px 10px;
         }
       }
     }
   }
-  .content {
-    text-align: center;
-    margin: 0 auto;
-    // background-color: blue;
+}
+
+.tv {
+  @include baseSettings();
+  &-title {
+    p:nth-child(1) {
+      margin-top: 0px;
+      font-size: 50px;
+    }
+    p:nth-child(2) {
+      color: #444;
+      font-size: 20px;
+    }
+  }
+  p.vote {
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 20px;
+    background-color: $backgroundColor-tableHeader;
+    width: 300px;
+    color: $baseColor;
+  }
+  .back {
+    margin-top: 20px;
+    a {
+      color: #F34854;
+    }
   }
 }
