@@ -28,16 +28,16 @@ const Header = () => (
 )
 
 const Home = () => (
-  <div>
+  <div className="home">
     <h2>Home</h2>
     <p>Hi, welcome!</p>
   </div>
 )
 
 const About = () => (
-  <div>
+  <div className="about">
     <h2>About</h2>
-    <p>The page to vote for tv-programs.</p>
+    <p>App to vote for tv-programs.</p>
   </div>
 )
 
@@ -45,6 +45,7 @@ class Tvs extends React.Component {
   constructor() {
     super()
     this.state = {}
+    this.handleVote = this.handleVote.bind(this)
   }
 
   componentDidMount() {
@@ -62,11 +63,10 @@ class Tvs extends React.Component {
   }
 
   render() {
-    const handleVote = () => this.handleVote()
     return (
-      <div>
-        <h2>Tvs</h2>
-        <Route exact path='/tvs' render={props => <TvList handleVote={handleVote} />} />
+      <div className='tvs'>
+        {/* <h2>Tvs</h2> */}
+        <Route exact path='/tvs' render={props => <TvList handleVote={this.handleVote} />} />
         <Route path='/tvs/:id' render={props => <Tv match={props.match} votes={this.state} />} />
       </div>
     )
@@ -74,14 +74,20 @@ class Tvs extends React.Component {
 }
 
 const TvList = (props) => (
-  <div>
+  <table className='tvlist'>
+    <tr>
+      <th></th>
+      <th>TV programs</th>
+      <th></th>
+    </tr>
     {TVS.map(tv => (
-      <li key={tv.id}>
-        <Link to={`/tvs/${tv.id}`}>{tv.name}</Link>
-        <button onClick={() => props.handleVote(tv.id)}>+</button>
-      </li>
+      <tr key={tv.id}>
+        <td>☆</td>
+        <td><Link to={`/tvs/${tv.id}`}>{tv.name}</Link></td>
+        <td><button onClick={() => props.handleVote(tv.id)}>Vote</button></td>
+      </tr>
     ))}
-  </div>
+  </table>
 )
 
 const Tv = props => {
@@ -98,13 +104,13 @@ const Tv = props => {
   }
 
   return (
-    <div>
-      <div>
+    <div className='tv'>
+      <div className='tv-title'>
         <p>{tv.name}</p>
-        <h3>{tv.description}</h3>
+        <p>{tv.description}</p>
       </div>
-      <h3>Vote: {vote}</h3>
-      <div><Link to='/tvs'>⇨戻る</Link></div>
+      <p className='vote'>Vote: {vote}</p>
+      <div className='back'><Link to='/tvs'>⇨戻る</Link></div>
     </div>
   )
 }
@@ -125,7 +131,12 @@ const TVS = [
   {
     id: 'moyasama',
     name: 'moyasama',
-    description: 'Japanese comedians and a female newcaster walk aorund less populated area mainly in Tokyo, Japan.'
+    description: 'Japanese comedians and a female newscaster walk aorund less populated area mainly in Tokyo, Japan.'
+  },
+  {
+    id: 'WBS',
+    name: 'WBS',
+    description: 'They talk about business overseas and in Japan.'
   }
 ]
 
